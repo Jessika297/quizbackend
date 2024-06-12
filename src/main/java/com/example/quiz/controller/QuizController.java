@@ -1,6 +1,7 @@
 package com.example.quiz.controller;
 
 import com.example.quiz.Quiz;
+import com.example.quiz.dto.QuizShortDTO;
 import com.example.quiz.service.QuizService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -19,7 +20,7 @@ public class QuizController {
     private QuizService quizService;
 
     @GetMapping
-    public List<Quiz> getAllQuizzes() {
+    public List<QuizShortDTO> getAllQuizzes() {
         return quizService.getAllQuizzes();
     }
 

@@ -6,8 +6,7 @@ import java.util.UUID;
 
 public class PlayertoquizDTO implements Serializable {
 
-    private PlayerDTO playerid;
-    private QuizDTO quizid;
+    private String playerName;
 
     private int score;
     private UUID id;
@@ -28,6 +27,15 @@ public class PlayertoquizDTO implements Serializable {
     public void setScore(int score) {
         this.score = score;
     }
-}
 
-//Help
+    public String getPlayerName() {
+        return playerName;
+    }
+
+    public void setPlayerName(String playerName) {
+        this.playerName = playerName;
+    }
+
+    //from dings mappen, also player mappen
+    //quiz holen -> scores -> player -> playername
+}

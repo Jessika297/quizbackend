@@ -44,4 +44,21 @@ public class Quiz {
     public void setDescription(String description) {
         this.description = description;
     }
+
+    public Set<Question> getQuestions() {
+        return questions;
+    }
+
+    public void setQuestions(Set<Question> questions) {
+        this.questions = questions;
+    }
+
+    public Set<Playertoquiz> getScores() {
+        return scores;
+    }
+
+    public void setScores(Set<Playertoquiz> scores) {
+        this.scores = scores;
+    }
+
 }
