@@ -1,6 +1,9 @@
 package com.example.quiz;
 
-import jakarta.persistence.*;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
 
 import java.util.UUID;
 
@@ -8,7 +11,7 @@ import java.util.UUID;
 public class Question {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
     private UUID quizid;
     private String text;

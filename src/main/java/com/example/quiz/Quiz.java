@@ -1,16 +1,25 @@
 package com.example.quiz;
 
 import jakarta.persistence.*;
+
+import java.util.HashSet;
+import java.util.Set;
 import java.util.UUID;
 
 @Entity
 public class Quiz {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
     private String name;
     private String description;
+
+    @OneToMany(mappedBy = "quizid", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
+    private Set<Question> questions = new HashSet<>();
+
+    @OneToMany(mappedBy = "quizid", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
+    private Set<Playertoquiz> scores = new HashSet<>();
 
     public UUID getId() {
         return id;

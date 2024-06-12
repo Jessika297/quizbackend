@@ -18,7 +18,8 @@ public class QuizService {
     private QuizDao quizDao;
 
     public List<Quiz> getAllQuizzes() {
-        return quizDao.findAll();
+        List<Quiz> all = quizDao.findAll();
+        return all;
     }
 
     public Optional<Quiz> getQuizById(UUID id) {
