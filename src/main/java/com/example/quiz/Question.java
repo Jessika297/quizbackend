@@ -1,10 +1,9 @@
 package com.example.quiz;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 
+import java.util.HashSet;
+import java.util.Set;
 import java.util.UUID;
 
 @Entity
@@ -16,6 +15,8 @@ public class Question {
     private UUID quizid;
     private String text;
 
+    @OneToMany(mappedBy = "questionid", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
+    private Set<Answer> answers = new HashSet<>();
 
     public UUID getId() {
         return id;
@@ -25,7 +26,7 @@ public class Question {
         this.id = id;
     }
 
-    public UUID getQuizId() {
+    public UUID getQuizid() {
         return quizid;
     }
 
@@ -39,6 +40,14 @@ public class Question {
 
     public void setText(String text) {
         this.text = text;
+    }
+
+    public Set<Answer> getAnswers() {
+        return answers;
+    }
+
+    public void setAnswers(Set<Answer> answers) {
+        this.answers = answers;
     }
 
 }

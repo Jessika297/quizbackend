@@ -1,27 +1,15 @@
-package com.example.quiz;
-
-import jakarta.persistence.*;
+package com.example.quiz.dto;
 
 import java.io.Serializable;
 import java.util.UUID;
 
-@Entity
-public class Playertoquiz implements Serializable {
 
+public class PlayertoquizDTO implements Serializable {
 
-    @ManyToOne
-    @JoinColumn(name = "playerid")
-    private Player playerid;
-
-    @ManyToOne
-    @JoinColumn(name = "quizid")
-    private Quiz quizid;
-
+    private PlayerDTO playerid;
+    private QuizDTO quizid;
 
     private int score;
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
 
     // Getters and setters
