@@ -12,6 +12,7 @@ import java.util.Optional;
 @RequestMapping("/questions")
 public class QuestionController {
 
+    //todo das hier alles mit dem quiz zurück geben
     @Autowired
     private QuestionService questionService;
 
@@ -30,10 +31,10 @@ public class QuestionController {
         return questionService.addQuestion(question);
     }
 
-    @PutMapping("/{id}")
-    public Question updateQuestion(@PathVariable Integer id, @RequestBody Question updatedQuestion) {
-        return questionService.updateQuestion(id, updatedQuestion);
-    }
+//    @PutMapping("/{id}")
+//    public Question updateQuestion(@PathVariable Integer id, @RequestBody Question updatedQuestion) {
+//        return questionService.updateQuestion(id, updatedQuestion);
+//    }
 
     @DeleteMapping("/{id}")
     public void deleteQuestion(@PathVariable Integer id) {

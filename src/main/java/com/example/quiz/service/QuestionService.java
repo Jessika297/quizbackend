@@ -4,10 +4,12 @@ import com.example.quiz.Question;
 import com.example.quiz.dao.QuestionDao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
 
+@Transactional
 @Service
 public class QuestionService {
 
@@ -26,22 +28,22 @@ public class QuestionService {
         return questionDao.save(question);
     }
 
-    public Question updateQuestion(Integer id, Question updatedQuestion) {
-        Optional<Question> optionalQuestion = questionDao.findById(id);
-        if (optionalQuestion.isPresent()) {
-            Question question = optionalQuestion.get();
-            question.setCategory(updatedQuestion.getCategory());
-            question.setDifficultylevel(updatedQuestion.getDifficultylevel());
-            question.setOption1(updatedQuestion.getOption1());
-            question.setOption2(updatedQuestion.getOption2());
-            question.setOption3(updatedQuestion.getOption3());
-            question.setOption4(updatedQuestion.getOption4());
-            question.setQuestion(updatedQuestion.getQuestion());
-            question.setAnswer(updatedQuestion.getAnswer());
-            return questionDao.save(question);
-        }
-        return null;
-    }
+//    public Question updateQuestion(Integer id, Question updatedQuestion) {
+//        Optional<Question> optionalQuestion = questionDao.findById(id);
+//        if (optionalQuestion.isPresent()) {
+//            Question question = optionalQuestion.get();
+//            question.setId(updatedQuestion.setId());
+//            question.setDifficultylevel(updatedQuestion.getDifficultylevel());
+//            question.setOption1(updatedQuestion.getOption1());
+//            question.setOption2(updatedQuestion.getOption2());
+//            question.setOption3(updatedQuestion.getOption3());
+//            question.setOption4(updatedQuestion.getOption4());
+//            question.setQuestion(updatedQuestion.getQuestion());
+//            question.setAnswer(updatedQuestion.getAnswer());
+//            return questionDao.save(question);
+//        }
+//        return null;
+//    }
 
     public void deleteQuestion(Integer id) {
         questionDao.deleteById(id);
