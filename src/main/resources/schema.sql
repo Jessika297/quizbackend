@@ -1,3 +1,4 @@
+/*
 -- Erstelle die Quiz Tabelle
 CREATE TABLE Quiz
 (
@@ -39,3 +40,4 @@ CREATE TABLE PlayertoQuiz
     quizid   UUID REFERENCES Quiz (id) ON DELETE CASCADE,
     score    INT
 );
+*/

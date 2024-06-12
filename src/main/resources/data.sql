@@ -1,3 +1,4 @@
+/*
 -- Beispiel Daten in die Quiz Tabelle einfügen
 INSERT INTO Quiz (id, name, description)
 VALUES ('123e4567-e89b-12d3-a456-426614174000', 'Allgemeinwissen', 'Ein Quiz über Allgemeinwissen'),
@@ -32,3 +33,4 @@ VALUES ('523e4567-e89b-12d3-a456-426614174000', '423e4567-e89b-12d3-a456-4266141
         '123e4567-e89b-12d3-a456-426614174000', 10),
        ('523e4567-e89b-12d3-a456-426614174001', '423e4567-e89b-12d3-a456-426614174001',
         '123e4567-e89b-12d3-a456-426614174001', 15);
+*/
