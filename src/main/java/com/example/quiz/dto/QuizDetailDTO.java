@@ -5,14 +5,35 @@ import com.example.quiz.Quiz;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 public class QuizDetailDTO {
 
-    private final Set<QuestionDTO> questions = new HashSet<>();
-    private final Set<PlayertoquizDTO> scores = new HashSet<>();
     private UUID id;
     private String name;
     private String description;
+    private Set<QuestionDTO> questions = new HashSet<>();
+    private Set<PlayertoquizDTO> scores = new HashSet<>();
+
+    // Default constructor
+    public QuizDetailDTO() {
+    }
+
+    // Parameterized constructor
+    public QuizDetailDTO(UUID id, String name, String description, Set<QuestionDTO> questions, Set<PlayertoquizDTO> scores) {
+        this.id = id;
+        this.name = name;
+        this.description = description;
+        this.questions = questions;
+        this.scores = scores;
+    }
+
+    // Constructor from Quiz entity
+    public static QuizDetailDTO from(Quiz quiz) {
+        Set<QuestionDTO> questions = quiz.getQuestions().stream().map(QuestionDTO::from).collect(Collectors.toSet());
+        Set<PlayertoquizDTO> scores = quiz.getScores().stream().map(PlayertoquizDTO::new).collect(Collectors.toSet());
+        return new QuizDetailDTO(quiz.getId(), quiz.getName(), quiz.getDescription(), questions, scores);
+    }
 
     public UUID getId() {
         return id;
@@ -38,14 +59,19 @@ public class QuizDetailDTO {
         this.description = description;
     }
 
-    public QuizDetailDTO from(Quiz quiz) {
-        var dto = new QuizDetailDTO();
-        dto.id = quiz.getId();
-        dto.name = quiz.getName();
-        dto.description = quiz.getDescription();
-        //dto.questions = quiz.getQuestions().stream().map(QuestionDTO::from).collect(Collectors.toSet());
-        //dto.scores = quiz.getScores().stream().map(PlayertoquizDTO::from).collect(Collectors.toSet());
-        return dto;
+    public Set<QuestionDTO> getQuestions() {
+        return questions;
     }
 
+    public void setQuestions(Set<QuestionDTO> questions) {
+        this.questions = questions;
+    }
+
+    public Set<PlayertoquizDTO> getScores() {
+        return scores;
+    }
+
+    public void setScores(Set<PlayertoquizDTO> scores) {
+        this.scores = scores;
+    }
 }

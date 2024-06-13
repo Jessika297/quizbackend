@@ -7,20 +7,28 @@ import java.util.UUID;
 
 public class PlayertoquizDTO implements Serializable {
 
-    private String playerName;
-
-    private int score;
     private UUID id;
+    private String playerName;
+    private int score;
 
-    public static PlayertoquizDTO from(Playertoquiz playertoquiz, String playerName) {
-        var dto = new PlayertoquizDTO();
-        dto.id = playertoquiz.getId();
-        dto.score = playertoquiz.getScore();
-        dto.playerName = playerName;
-        return dto;
+    // Default constructor
+    public PlayertoquizDTO() {
     }
 
-    // Getters and setters
+    // Parameterized constructor
+    public PlayertoquizDTO(UUID id, String playerName, int score) {
+        this.id = id;
+        this.playerName = playerName;
+        this.score = score;
+    }
+
+    // Constructor from Playertoquiz entity
+    public PlayertoquizDTO(Playertoquiz playertoquiz) {
+        this.id = playertoquiz.getId();
+        this.score = playertoquiz.getScore();
+        this.playerName = playertoquiz.getPlayer().getName(); // Assuming Player entity has getName method
+    }
+
     public UUID getId() {
         return id;
     }
@@ -44,7 +52,4 @@ public class PlayertoquizDTO implements Serializable {
     public void setPlayerName(String playerName) {
         this.playerName = playerName;
     }
-
-    //from dings mappen, also player mappen
-    //quiz holen -> scores -> player -> playername
 }

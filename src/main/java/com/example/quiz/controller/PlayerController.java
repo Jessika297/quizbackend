@@ -1,38 +1,25 @@
 package com.example.quiz.controller;
 
 import com.example.quiz.Player;
-import com.example.quiz.service.PlayerService;
+import com.example.quiz.dto.PlayerDTO;
+import com.example.quiz.exception.ResourceNotFoundException;
+import com.example.quiz.repository.PlayerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
-import java.util.Optional;
-import java.util.UUID;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/players")
+@RequestMapping("/player")
 public class PlayerController {
 
     @Autowired
-    private PlayerService playerService;
+    private PlayerRepository playerRepository;
 
-    @GetMapping
-    public List<Player> getAllPlayers() {
-        return playerService.getAllPlayers();
-    }
-
-    @GetMapping("/{id}")
-    public Optional<Player> getPlayerById(@PathVariable UUID id) {
-        return playerService.getPlayerById(id);
-    }
-
-    @PostMapping
-    public Player addPlayer(@RequestBody Player player) {
-        return playerService.addPlayer(player);
-    }
-
-    @DeleteMapping("/{id}")
-    public void deletePlayer(@PathVariable UUID id) {
-        playerService.deletePlayer(id);
+    @GetMapping("/{name}")
+    public PlayerDTO getPlayerByName(@PathVariable String name) {
+        Player player = playerRepository.findByName(name).orElseThrow(() -> new ResourceNotFoundException("Player not found"));
+        return new PlayerDTO(player);
     }
 }

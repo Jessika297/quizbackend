@@ -9,6 +9,18 @@ public class AnswerDTO {
     private String text;
     private boolean istrue;
 
+    // Default constructor
+    public AnswerDTO() {
+    }
+
+    // Parameterized constructor
+    public AnswerDTO(UUID id, UUID questionid, String text, boolean istrue) {
+        this.id = id;
+        this.questionid = questionid;
+        this.text = text;
+        this.istrue = istrue;
+    }
+
     public UUID getId() {
         return id;
     }

@@ -2,25 +2,24 @@ package com.example.quiz;
 
 import jakarta.persistence.*;
 
-import java.util.HashSet;
 import java.util.Set;
 import java.util.UUID;
 
 @Entity
 public class Quiz {
-
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
     private String name;
     private String description;
 
-    @OneToMany(mappedBy = "quizid", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
-    private Set<Question> questions = new HashSet<>();
+    @OneToMany(mappedBy = "quiz", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private Set<Question> questions;
 
-    @OneToMany(mappedBy = "quizid", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
-    private Set<Playertoquiz> scores = new HashSet<>();
+    @OneToMany(mappedBy = "quiz", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private Set<Playertoquiz> scores;
 
+    // getters and setters
     public UUID getId() {
         return id;
     }
@@ -60,5 +59,4 @@ public class Quiz {
     public void setScores(Set<Playertoquiz> scores) {
         this.scores = scores;
     }
-
 }

@@ -1,41 +1,41 @@
 package com.example.quiz.controller;
 
-import com.example.quiz.Quiz;
+import com.example.quiz.dto.QuizDetailDTO;
 import com.example.quiz.dto.QuizShortDTO;
+import com.example.quiz.repository.QuizRepository;
 import com.example.quiz.service.QuizService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
-import java.util.Optional;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/quiz")
 public class QuizController {
-    //todo: rückgabe bei falscher uuid: 404 oder so
-    //
 
+    @Autowired
+    private QuizRepository quizRepository;
     @Autowired
     private QuizService quizService;
 
     @GetMapping
     public List<QuizShortDTO> getAllQuizzes() {
-        return quizService.getAllQuizzes();
+        return quizRepository.findAll().stream().map(QuizShortDTO::from).collect(Collectors.toList());
     }
+
 
     @GetMapping("/{id}")
-    public Optional<Quiz> getQuizById(@PathVariable UUID id) {
-        return quizService.getQuizById(id);
-    }
-
-    @PostMapping
-    public Quiz addQuiz(@RequestBody Quiz quiz) {
-        return quizService.addQuiz(quiz);
-    }
-
-    @DeleteMapping("/{id}")
-    public void deleteQuiz(@PathVariable UUID id) {
-        quizService.deleteQuiz(id);
+    public ResponseEntity<?> getQuizById(@PathVariable UUID id) {
+        QuizDetailDTO quizDetailDTO = quizService.getQuizById(id);
+        if (quizDetailDTO == null) {
+            return ResponseEntity.notFound().build();
+        }
+        return ResponseEntity.ok(quizDetailDTO);
     }
 }

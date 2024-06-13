@@ -1,13 +1,12 @@
 package com.example.quiz.service;
 
 import com.example.quiz.Player;
-import com.example.quiz.dao.PlayerDao;
+import com.example.quiz.dto.PlayerDTO;
+import com.example.quiz.repository.PlayerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.List;
-import java.util.Optional;
 import java.util.UUID;
 
 @Transactional
@@ -15,21 +14,27 @@ import java.util.UUID;
 public class PlayerService {
 
     @Autowired
-    private PlayerDao playerDao;
+    private PlayerRepository playerRepository;
 
-    public List<Player> getAllPlayers() {
-        return playerDao.findAll();
+    public PlayerDTO getPlayerByName(String name) {
+        return playerRepository.findByName(name)
+                .map(PlayerDTO::new)
+                .orElseThrow(() -> new RuntimeException("Player not found"));
     }
 
-    public Optional<Player> getPlayerById(UUID id) {
-        return playerDao.findById(id);
+    public PlayerDTO createPlayer(Player player) {
+        Player savedPlayer = playerRepository.save(player);
+        return new PlayerDTO(savedPlayer);
     }
 
-    public Player addPlayer(Player player) {
-        return playerDao.save(player);
+    public PlayerDTO updatePlayer(UUID id, Player player) {
+        playerRepository.findById(id).orElseThrow(() -> new RuntimeException("Player not found"));
+        player.setId(id);
+        Player updatedPlayer = playerRepository.save(player);
+        return new PlayerDTO(updatedPlayer);
     }
 
     public void deletePlayer(UUID id) {
-        playerDao.deleteById(id);
+        playerRepository.deleteById(id);
     }
 }

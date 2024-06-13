@@ -11,13 +11,21 @@ public class QuizShortDTO {
     private String description;
     private int questionCount;
 
+    // Default constructor
+    public QuizShortDTO() {
+    }
+
+    // Parameterized constructor
+    public QuizShortDTO(UUID id, String name, String description, int questionCount) {
+        this.id = id;
+        this.name = name;
+        this.description = description;
+        this.questionCount = questionCount;
+    }
+
+    // Constructor from Quiz entity
     public static QuizShortDTO from(Quiz quiz) {
-        var dto = new QuizShortDTO();
-        dto.id = quiz.getId();
-        dto.name = quiz.getName();
-        dto.description = quiz.getDescription();
-        dto.questionCount = quiz.getQuestions().size();
-        return dto;
+        return new QuizShortDTO(quiz.getId(), quiz.getName(), quiz.getDescription(), quiz.getQuestions().size());
     }
 
     public UUID getId() {
@@ -51,5 +59,4 @@ public class QuizShortDTO {
     public void setQuestionCount(int questionCount) {
         this.questionCount = questionCount;
     }
-
 }

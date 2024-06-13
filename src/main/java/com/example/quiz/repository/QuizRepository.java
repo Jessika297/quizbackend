@@ -1,4 +1,4 @@
-package com.example.quiz.dao;
+package com.example.quiz.repository;
 
 import com.example.quiz.Quiz;
 import jakarta.annotation.Nonnull;
@@ -11,7 +11,7 @@ import java.util.Optional;
 import java.util.UUID;
 
 @Repository
-public interface QuizDao extends JpaRepository<Quiz, UUID> {
+public interface QuizRepository extends JpaRepository<Quiz, UUID> {
 
     @EntityGraph(attributePaths = {"questions"})
     @Nonnull

@@ -2,29 +2,25 @@ package com.example.quiz;
 
 import jakarta.persistence.*;
 
-import java.io.Serializable;
 import java.util.UUID;
 
 @Entity
-public class Playertoquiz implements Serializable {
-
-
-    @ManyToOne
-    @JoinColumn(name = "playerid")
-    private Player playerid;
-
-    @ManyToOne
-    @JoinColumn(name = "quizid")
-    private Quiz quizid;
-
-
-    private int score;
+public class Playertoquiz {
 
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
+    private int score;
 
-    // Getters and setters
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "playerid", nullable = false)
+    private Player player;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "quizid", nullable = false)
+    private Quiz quiz;
+
+    // getters and setters
     public UUID getId() {
         return id;
     }
@@ -40,6 +36,20 @@ public class Playertoquiz implements Serializable {
     public void setScore(int score) {
         this.score = score;
     }
-}
 
-//Help
+    public Player getPlayer() {
+        return player;
+    }
+
+    public void setPlayer(Player player) {
+        this.player = player;
+    }
+
+    public Quiz getQuiz() {
+        return quiz;
+    }
+
+    public void setQuiz(Quiz quiz) {
+        this.quiz = quiz;
+    }
+}

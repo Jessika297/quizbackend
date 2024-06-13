@@ -10,12 +10,20 @@ public class QuestionDTO {
     private UUID quizid;
     private String text;
 
+    // Default constructor
+    public QuestionDTO() {
+    }
+
+    // Parameterized constructor
+    public QuestionDTO(UUID id, UUID quizid, String text) {
+        this.id = id;
+        this.quizid = quizid;
+        this.text = text;
+    }
+
+    // Constructor from Question entity
     public static QuestionDTO from(Question question) {
-        var dto = new QuestionDTO(); //rest
-        dto.id = question.getId();
-        dto.quizid = question.getQuizid();
-        dto.text = question.getText();
-        return dto;
+        return new QuestionDTO(question.getId(), question.getQuiz().getId(), question.getText());
     }
 
     public UUID getId() {
@@ -26,7 +34,7 @@ public class QuestionDTO {
         this.id = id;
     }
 
-    public UUID getQuizId() {
+    public UUID getQuizid() {
         return quizid;
     }
 
@@ -41,5 +49,4 @@ public class QuestionDTO {
     public void setText(String text) {
         this.text = text;
     }
-
 }

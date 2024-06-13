@@ -1,51 +1,40 @@
 package com.example.quiz.service;
 
 import com.example.quiz.Question;
-import com.example.quiz.dao.QuestionDao;
+import com.example.quiz.dto.QuestionDTO;
+import com.example.quiz.repository.QuestionRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 
 @Transactional
 @Service
 public class QuestionService {
 
     @Autowired
-    private QuestionDao questionDao;
+    private QuestionRepository questionRepository;
 
-    public List<Question> getAllQuestions() {
-        return questionDao.findAll();
+
+    public Optional<Question> getQuestionById(UUID id) {
+        return questionRepository.findById(id);
     }
 
-    public Optional<Question> getQuestionById(Integer id) {
-        return questionDao.findById(id);
+    public QuestionDTO createQuestion(Question question) {
+        Question savedQuestion = questionRepository.save(question);
+        return QuestionDTO.from(savedQuestion);
     }
 
-    public Question addQuestion(Question question) {
-        return questionDao.save(question);
+    public QuestionDTO updateQuestion(UUID id, Question question) {
+        questionRepository.findById(id).orElseThrow(() -> new RuntimeException("Question not found"));
+        question.setId(id);
+        Question updatedQuestion = questionRepository.save(question);
+        return QuestionDTO.from(updatedQuestion);
     }
 
-//    public Question updateQuestion(Integer id, Question updatedQuestion) {
-//        Optional<Question> optionalQuestion = questionDao.findById(id);
-//        if (optionalQuestion.isPresent()) {
-//            Question question = optionalQuestion.get();
-//            question.setId(updatedQuestion.setId());
-//            question.setDifficultylevel(updatedQuestion.getDifficultylevel());
-//            question.setOption1(updatedQuestion.getOption1());
-//            question.setOption2(updatedQuestion.getOption2());
-//            question.setOption3(updatedQuestion.getOption3());
-//            question.setOption4(updatedQuestion.getOption4());
-//            question.setQuestion(updatedQuestion.getQuestion());
-//            question.setAnswer(updatedQuestion.getAnswer());
-//            return questionDao.save(question);
-//        }
-//        return null;
-//    }
-
-    public void deleteQuestion(Integer id) {
-        questionDao.deleteById(id);
+    public void deleteQuestion(UUID id) {
+        questionRepository.deleteById(id);
     }
 }

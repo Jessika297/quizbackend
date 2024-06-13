@@ -2,8 +2,7 @@ package com.example.quiz;
 
 import jakarta.persistence.*;
 
-import java.util.HashSet;
-import java.util.Set;
+import java.util.List;
 import java.util.UUID;
 
 @Entity
@@ -12,26 +11,22 @@ public class Question {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
-    private UUID quizid;
     private String text;
 
-    @OneToMany(mappedBy = "questionid", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
-    private Set<Answer> answers = new HashSet<>();
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "quizid", nullable = false)
+    private Quiz quiz;
 
+    @OneToMany(mappedBy = "question", fetch = FetchType.LAZY)
+    private List<Answer> answers;
+
+    // getters and setters
     public UUID getId() {
         return id;
     }
 
     public void setId(UUID id) {
         this.id = id;
-    }
-
-    public UUID getQuizid() {
-        return quizid;
-    }
-
-    public void setQuizid(UUID quizid) {
-        this.quizid = quizid;
     }
 
     public String getText() {
@@ -42,11 +37,19 @@ public class Question {
         this.text = text;
     }
 
-    public Set<Answer> getAnswers() {
+    public Quiz getQuiz() {
+        return quiz;
+    }
+
+    public void setQuiz(Quiz quiz) {
+        this.quiz = quiz;
+    }
+
+    public List<Answer> getAnswers() {
         return answers;
     }
 
-    public void setAnswers(Set<Answer> answers) {
+    public void setAnswers(List<Answer> answers) {
         this.answers = answers;
     }
 

@@ -1,9 +1,6 @@
 package com.example.quiz;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 
 import java.util.UUID;
 
@@ -11,11 +8,29 @@ import java.util.UUID;
 public class Answer {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.UUID)
+    @GeneratedValue
     private UUID id;
-    private UUID questionid;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "questionid", nullable = false)
+    private Question question;
+
+    @Column(nullable = false)
     private String text;
+
+    @Column(nullable = false)
     private boolean istrue;
+
+    // Default constructor
+    public Answer() {
+    }
+
+    // Parameterized constructor
+    public Answer(Question question, String text, boolean istrue) {
+        this.question = question;
+        this.text = text;
+        this.istrue = istrue;
+    }
 
     public UUID getId() {
         return id;
@@ -25,12 +40,12 @@ public class Answer {
         this.id = id;
     }
 
-    public UUID getQuestionid() {
-        return questionid;
+    public Question getQuestion() {
+        return question;
     }
 
-    public void setQuestionid(UUID questionid) {
-        this.questionid = questionid;
+    public void setQuestion(Question question) {
+        this.question = question;
     }
 
     public String getText() {

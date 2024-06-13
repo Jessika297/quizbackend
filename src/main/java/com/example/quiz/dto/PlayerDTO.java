@@ -1,5 +1,7 @@
 package com.example.quiz.dto;
 
+import com.example.quiz.Player;
+
 import java.util.HashSet;
 import java.util.Set;
 import java.util.UUID;
@@ -10,6 +12,19 @@ public class PlayerDTO {
     private String name;
     private String password;
     private Set<PlayertoquizDTO> scores = new HashSet<>();
+
+    // Default constructor
+    public PlayerDTO() {
+    }
+
+    // Parameterized constructor
+    public PlayerDTO(Player player) {
+        this.id = player.getId();
+        this.name = player.getName();
+        this.password = player.getPassword();
+        this.scores = new HashSet<>();
+        //player.getScores().forEach(score -> this.scores.add(PlayertoquizDTO.from(score, player.getName())));
+    }
 
     public Set<PlayertoquizDTO> getScores() {
         return scores;
