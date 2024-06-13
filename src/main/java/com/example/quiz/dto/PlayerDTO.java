@@ -22,9 +22,10 @@ public class PlayerDTO {
         this.id = player.getId();
         this.name = player.getName();
         this.password = player.getPassword();
-        this.scores = new HashSet<>();
-        //player.getScores().forEach(score -> this.scores.add(PlayertoquizDTO.from(score, player.getName())));
+        player.getScores().forEach(score -> this.scores.add(PlayertoquizDTO.from(score, player.getName())));
     }
+
+    // Getters and setters
 
     public Set<PlayertoquizDTO> getScores() {
         return scores;

@@ -30,8 +30,12 @@ public class QuizDetailDTO {
 
     // Constructor from Quiz entity
     public static QuizDetailDTO from(Quiz quiz) {
-        Set<QuestionDTO> questions = quiz.getQuestions().stream().map(QuestionDTO::from).collect(Collectors.toSet());
-        Set<PlayertoquizDTO> scores = quiz.getScores().stream().map(PlayertoquizDTO::new).collect(Collectors.toSet());
+        Set<QuestionDTO> questions = quiz.getQuestions().stream()
+                .map(QuestionDTO::from)
+                .collect(Collectors.toSet());
+        Set<PlayertoquizDTO> scores = quiz.getScores().stream()
+                .map(PlayertoquizDTO::new)
+                .collect(Collectors.toSet());
         return new QuizDetailDTO(quiz.getId(), quiz.getName(), quiz.getDescription(), questions, scores);
     }
 

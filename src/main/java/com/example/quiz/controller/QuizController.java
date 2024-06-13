@@ -18,7 +18,6 @@ import java.util.stream.Collectors;
 @RestController
 @RequestMapping("/quiz")
 public class QuizController {
-
     @Autowired
     private QuizRepository quizRepository;
     @Autowired
@@ -28,7 +27,6 @@ public class QuizController {
     public List<QuizShortDTO> getAllQuizzes() {
         return quizRepository.findAll().stream().map(QuizShortDTO::from).collect(Collectors.toList());
     }
-
 
     @GetMapping("/{id}")
     public ResponseEntity<?> getQuizById(@PathVariable UUID id) {

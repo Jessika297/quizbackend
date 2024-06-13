@@ -26,8 +26,15 @@ public class PlayertoquizDTO implements Serializable {
     public PlayertoquizDTO(Playertoquiz playertoquiz) {
         this.id = playertoquiz.getId();
         this.score = playertoquiz.getScore();
-        this.playerName = playertoquiz.getPlayer().getName(); // Assuming Player entity has getName method
+        this.playerName = playertoquiz.getPlayer().getName();
     }
+
+    // Static factory method
+    public static PlayertoquizDTO from(Playertoquiz playertoquiz, String playerName) {
+        return new PlayertoquizDTO(playertoquiz.getId(), playerName, playertoquiz.getScore());
+    }
+
+    // Getters and setters
 
     public UUID getId() {
         return id;
