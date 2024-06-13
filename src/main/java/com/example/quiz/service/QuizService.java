@@ -2,6 +2,7 @@ package com.example.quiz.service;
 
 import com.example.quiz.Quiz;
 import com.example.quiz.dao.QuizDao;
+import com.example.quiz.dto.QuizDetailDTO;
 import com.example.quiz.dto.QuizShortDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -20,6 +21,10 @@ public class QuizService {
 
     public List<QuizShortDTO> getAllQuizzes() {
         return quizDao.findAll().stream().map(QuizShortDTO::from).toList();
+    }
+
+    public List<QuizDetailDTO> getAllQuizzesWithAnswers() {
+        return quizDao.findAll().stream().map(QuizDetailDTO::from).toList();
     }
 
     public Optional<Quiz> getQuizById(UUID id) {

@@ -10,6 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 @Transactional
 @Service
@@ -35,5 +36,14 @@ public class PlayertoQuizService {
 
     public void deletePlayertoQuiz(UUID id) {
         playertoQuizDao.deleteById(id);
+    }
+
+    public List<PlayertoquizDTO> getPlayertoquizByQuizId(UUID quizid) {
+        List<Object[]> results = playertoQuizDao.findByQuizIdWithPlayerName(quizid);
+        return results.stream().map(result -> {
+            Playertoquiz playertoquiz = (Playertoquiz) result[0];
+            String playerName = (String) result[1];
+            return PlayertoquizDTO.from(playertoquiz, playerName);
+        }).collect(Collectors.toList());
     }
 }

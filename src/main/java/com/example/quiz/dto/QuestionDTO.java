@@ -1,5 +1,7 @@
 package com.example.quiz.dto;
 
+import com.example.quiz.Question;
+
 import java.util.UUID;
 
 public class QuestionDTO {
@@ -8,6 +10,13 @@ public class QuestionDTO {
     private UUID quizid;
     private String text;
 
+    public static QuestionDTO from(Question question) {
+        var dto = new QuestionDTO(); //rest
+        dto.id = question.getId();
+        dto.quizid = question.getQuizid();
+        dto.text = question.getText();
+        return dto;
+    }
 
     public UUID getId() {
         return id;

@@ -1,8 +1,9 @@
 package com.example.quiz.dto;
 
+import com.example.quiz.Playertoquiz;
+
 import java.io.Serializable;
 import java.util.UUID;
-
 
 public class PlayertoquizDTO implements Serializable {
 
@@ -10,6 +11,14 @@ public class PlayertoquizDTO implements Serializable {
 
     private int score;
     private UUID id;
+
+    public static PlayertoquizDTO from(Playertoquiz playertoquiz, String playerName) {
+        var dto = new PlayertoquizDTO();
+        dto.id = playertoquiz.getId();
+        dto.score = playertoquiz.getScore();
+        dto.playerName = playerName;
+        return dto;
+    }
 
     // Getters and setters
     public UUID getId() {
